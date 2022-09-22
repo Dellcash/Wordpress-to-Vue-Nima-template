@@ -1,4 +1,5 @@
 <template>
+  <TheHeader />
   <RouterView />
 </template>
 
@@ -10,5 +11,9 @@
 
 * {
   font-family: "IRANSans";
+}
+
+body {
+  background-color: rgb(245, 245, 245);
 }
 </style>
