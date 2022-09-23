@@ -27,6 +27,11 @@ export default defineConfig({
       ],
       shortcuts: {
         'layout': 'mx-auto max-w-420px md:max-w-768px xl:max-w-1170px',
+      },
+      theme: {
+        colors: {
+          custom_red: '#e6465e'
+        }
       }
     }),
     Components({
