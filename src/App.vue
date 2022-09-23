@@ -15,5 +15,6 @@
 
 body {
   background-color: rgb(245, 245, 245);
+  color: #616161
 }
 </style>
