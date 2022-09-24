@@ -24,48 +24,43 @@ const secSubHeader = computed(() => header.mainMenu.subHeader.sec)
 
 const el = ref()
 const isHovered = useElementHover(el)
-
 </script>
 
 <template>
-    <header bg-white p3 shadow-md md:p5 xl:py3 xl:pb0>
-        <section layout divide-y divide-stone-100 space-y2>
-            <div flex items-center justify-between>
-                <div flex items-center space-x-reverse space-x10 xl:space-x0>
-                    <div :class="imgs.hamburger" text-2xl md:text-3xl xl:hidden />
-                    <div flex items-center>
-                        <img :src="imgs.logo" alt="logo" w8 h8 md="w10 h10">
-                        <h3 class="text-xs -tracking-1px mr3  font-bold md:text-lg xl:text-xl">نام فروشگاه شما</h3>
+    <header>
+        <section>
+            <div>
+                <div>
+                    <div :class="imgs.hamburger" />
+                    <div>
+                        <img :src="imgs.logo" alt="logo">
+                        <h3>نام فروشگاه شما</h3>
                     </div>
                 </div>
 
-                <input type="text" placeholder="نام کالا٬ برند یا دسته‌بندی مورد نظر . . ."
-                    class="hidden md:block text-xs placeholder:text-2.5 px3 py2.7 bg-stone-200/70 rounded-lg duration-250 focus:outline-none focus:outline focus:outline-stone-400 md:placeholder:text-3 w-65 xl:px5 xl:py3.83.83.8 xl:w-130 xl:-mr30">
+                <input type="text" placeholder="نام کالا٬ برند یا دسته‌بندی مورد نظر . . .">
 
-                <div
-                    class="hidden md:flex items-center border border-stone-100 w-35 px-3 py1.5 rounded-lg xl:py2.5 xl:px-5 xl:w40 xl:-ml40">
-                    <div :class="imgs.user" text-stone-500 xl:text-xl />
+                <div>
+                    <div :class="imgs.user" />
 
-                    <div
-                        class="[&_span]:text-10px [&_span]:cursor-pointer space-x-reverse space-x1 mr2 [&_span]:text-12px">
-                        <span duration-250 hover:text-custom_red>ورود</span>
+                    <div>
+                        <span>ورود</span>
                         <span>/</span>
-                        <span duration-250 hover:text-custom_red>ثبت‌ نام</span>
+                        <span>ثبت‌ نام</span>
                     </div>
                 </div>
-                <div :class="imgs.basket" text-2xl text-stone-500 md:text-3xl />
+                <div :class="imgs.basket" />
             </div>
 
-            <div grid grid-cols-5 items-center gap-x2 pt2 md:hidden>
-                <input type="text" placeholder="نام کالا٬ برند یا دسته‌بندی مورد نظر . . ."
-                    class="text-xs placeholder:text-8px bg-stone-200/70 py2 px2 rounded-lg col-span-3 duration-250 focus:outline-none focus:outline focus:outline-stone-400 sm:placeholder:text-10px">
+            <div>
+                <input type="text" placeholder="نام کالا٬ برند یا دسته‌بندی مورد نظر . . .">
 
-                <div class="flex items-center border border-stone-100 px2 py-3px rounded-lg col-span-2 justify-center">
+                <div>
                     <div :class="imgs.user" />
-                    <div class="[&_span]:text-10px [&_span]:cursor-pointer space-x-reverse space-x1 mr2 ">
-                        <span duration-250 hover:text-custom_red>ورود</span>
+                    <div>
+                        <span>ورود</span>
                         <span>/</span>
-                        <span duration-250 hover:text-custom_red>ثبت‌ نام</span>
+                        <span>ثبت‌ نام</span>
                     </div>
                 </div>
             </div>
@@ -122,5 +117,330 @@ const isHovered = useElementHover(el)
 </template>
 
 <style lang="scss" scoped>
+header {
+    --un-bg-opacity: 1;
+    background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+    padding: 0.75rem;
+    --un-shadow: var(--un-shadow-inset) 0 4px 6px -1px var(--un-shadow-color, rgba(0, 0, 0, 0.1)), var(--un-shadow-inset) 0 2px 4px -2px var(--un-shadow-color, rgba(0, 0, 0, 0.1));
+    box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);
 
+    @screen md {
+        padding: 1.25rem;
+    }
+
+    @screen xl {
+        padding-top: 0.75rem;
+        padding-bottom: 0rem !important;
+    }
+
+    section {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 420px;
+
+        >:not([hidden])~:not([hidden]) {
+            --un-space-y-reverse: 0;
+            margin-top: calc(0.5rem * calc(1 - var(--un-space-y-reverse)));
+            margin-bottom: calc(0.5rem * var(--un-space-y-reverse));
+            --un-divide-y-reverse: 0;
+            border-top-width: calc(1px * calc(1 - var(--un-divide-y-reverse)));
+            border-bottom-width: calc(1px * var(--un-divide-y-reverse));
+            border-top-style: solid;
+            border-bottom-style: solid;
+            --un-divide-opacity: 1;
+            border-color: rgba(245, 245, 244, var(--un-divide-opacity));
+        }
+
+        @screen md {
+            max-width: 768px;
+        }
+
+        @screen xl {
+            max-width: 1170px;
+        }
+
+        >div:nth-child(1) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            div {
+                &:first-child {
+                    display: flex;
+                    align-items: center;
+
+                    >:not([hidden])~:not([hidden]) {
+                        --un-space-x-reverse: 0;
+                        margin-left: calc(2.5rem * calc(1 - var(--un-space-x-reverse)));
+                        margin-right: calc(2.5rem * var(--un-space-x-reverse));
+                        --un-space-x-reverse: 1;
+                    }
+
+                    @screen xl {
+                        >:not([hidden])~:not([hidden]) {
+                            --un-space-x-reverse: 0;
+                            margin-left: calc(0rem * calc(1 - var(--un-space-x-reverse)));
+                            margin-right: calc(0rem * var(--un-space-x-reverse));
+                        }
+                    }
+
+                    div {
+                        &:first-child {
+                            font-size: 1.5rem;
+                            line-height: 2rem;
+
+                            @screen xl {
+                                display: none;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            display: flex;
+                            align-items: center;
+
+                            img {
+                                width: 2rem;
+                                height: 2rem;
+
+                                @screen md {
+                                    width: 2.5rem;
+                                    height: 2.5rem;
+                                }
+                            }
+
+                            h3 {
+                                margin-right: 0.75rem;
+                                font-size: 0.75rem;
+                                line-height: 1rem;
+                                font-weight: 700;
+                                letter-spacing: -1px;
+
+                                @screen md {
+                                    font-size: 1.125rem;
+                                    line-height: 1.75rem;
+                                }
+
+                                @screen xl {
+                                    font-size: 1.25rem;
+                                    line-height: 1.75rem;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:nth-child(3) {
+                    display: none;
+                    width: 8.75rem;
+                    align-items: center;
+                    border-width: 1px;
+                    border-style: solid;
+                    --un-border-opacity: 1;
+                    border-color: rgba(245, 245, 244, var(--un-border-opacity));
+                    border-radius: 0.5rem;
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                    padding-top: 0.375rem;
+                    padding-bottom: 0.375rem;
+
+                    @screen md {
+                        display: flex;
+                    }
+
+                    @screen xl {
+                        margin-left: -10rem;
+                        width: 10rem;
+                        padding-top: 0.625rem;
+                        padding-bottom: 0.625rem;
+                        padding-left: 1.25rem;
+                        padding-right: 1.25rem;
+                    }
+
+                    div {
+                        &:first-child {
+                            --un-text-opacity: 1;
+                            color: rgba(120, 113, 108, var(--un-text-opacity));
+
+                            @screen xl {
+                                font-size: 1.25rem;
+                                line-height: 1.75rem;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            margin-right: 0.5rem;
+
+                            >:not([hidden])~:not([hidden]) {
+                                --un-space-x-reverse: 0;
+                                margin-left: calc(0.25rem * calc(1 - var(--un-space-x-reverse)));
+                                margin-right: calc(0.25rem * var(--un-space-x-reverse));
+                                --un-space-x-reverse: 1;
+                            }
+
+                            span {
+                                &:nth-child(2) {
+                                    &:hover {
+                                        color: #616161;
+                                        cursor: initial;
+                                    }
+                                }
+
+                                cursor: pointer;
+                                font-size: 12px;
+                                transition-duration: 250ms;
+
+                                &:hover {
+                                    --un-text-opacity: 1;
+                                    color: rgba(230, 70, 94, var(--un-text-opacity));
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                &:nth-child(4) {
+                    font-size: 1.5rem;
+                    line-height: 2rem;
+                    --un-text-opacity: 1;
+                    color: rgba(120, 113, 108, var(--un-text-opacity));
+
+                    @screen md {
+                        font-size: 1.875rem;
+                        line-height: 2.25rem;
+                    }
+                }
+            }
+
+            input {
+                display: none;
+                width: 16.25rem;
+                border-radius: 0.5rem;
+                background-color: rgba(231, 229, 228, 0.7);
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                padding-top: 0.675rem;
+                padding-bottom: 0.675rem;
+                font-size: 0.75rem;
+                line-height: 1rem;
+                transition-duration: 250ms;
+
+                &:focus {
+                    --un-outline-color-opacity: 1;
+                    outline-color: rgba(168, 162, 158, var(--un-outline-color-opacity));
+                    outline-style: solid;
+                    outline: 2px solid transparent;
+                    outline-offset: 2px;
+                }
+
+                @screen md {
+                    display: block;
+
+                    &::placeholder {
+                        font-size: 0.75rem;
+                    }
+                }
+
+                @screen xl {
+                    margin-right: -7.5rem;
+                    width: 32.5rem;
+                    padding-left: 1.25rem;
+                    padding-right: 1.25rem;
+                    padding-top: 0.9575rem;
+                    padding-bottom: 0.9575rem;
+                }
+            }
+        }
+
+        >div:nth-child(2) {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            align-items: center;
+            grid-column-gap: 0.5rem;
+            column-gap: 0.5rem;
+            padding-top: 0.5rem;
+
+            @screen md {
+                display: none;
+            }
+
+            input {
+                grid-column: span 3/span 3;
+                border-radius: 0.5rem;
+                background-color: rgba(231, 229, 228, 0.7);
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                font-size: 0.75rem;
+                line-height: 1rem;
+                transition-duration: 250ms;
+
+                &::placeholder {
+                    font-size: 8px;
+                }
+
+                &:focus {
+                    --un-outline-color-opacity: 1;
+                    outline-color: rgba(168, 162, 158, var(--un-outline-color-opacity));
+                    outline-style: solid;
+                    outline: 2px solid transparent;
+                    outline-offset: 2px;
+                }
+
+                @screen sm {
+                    &::placeholder {
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            >div:nth-child(2) {
+                grid-column: span 2/span 2;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-width: 1px;
+                border-style: solid;
+                --un-border-opacity: 1;
+                border-color: rgba(245, 245, 244, var(--un-border-opacity));
+                border-radius: 0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                padding-top: 3px;
+                padding-bottom: 3px;
+
+                >div:nth-child(2) {
+                    margin-right: 0.5rem;
+
+                    >:not([hidden])~:not([hidden]) {
+                        --un-space-x-reverse: 0;
+                        margin-left: calc(0.25rem * calc(1 - var(--un-space-x-reverse)));
+                        margin-right: calc(0.25rem * var(--un-space-x-reverse));
+                        --un-space-x-reverse: 1;
+                    }
+
+                    span {
+                        cursor: pointer;
+                        font-size: 10px;
+                        transition-duration: 250ms;
+
+                        &:hover {
+                            --un-text-opacity: 1;
+                            color: rgba(230, 70, 94, var(--un-text-opacity));
+                        }
+                    }
+
+                    >span:nth-child(2) {
+                        cursor: initial;
+
+                        &:hover {
+                            color: #616161;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 </style>
