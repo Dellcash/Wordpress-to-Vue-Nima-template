@@ -1,6 +1,8 @@
 <script setup>
 import { useElementHover } from '@vueuse/core'
+import { useMainStore } from '../stores/main';
 
+const main = useMainStore()
 const imgs = {
     hamburger: 'i-carbon-menu',
     logo: 'https://theme46.mywebzi.ir/uploads/d4f75b66fd624433b840077a1a186642.w_40,h_40,r_k.png',
@@ -12,7 +14,9 @@ const header = reactive({
     mainMenu: {
         header: ['لوازم جانبی گوشی', 'گوشی موبایل', 'واقعیت مجازی', 'مچ‌بند و ساعت هوشمند'],
         subHeader: {
+            firstMenu: false,
             first: ['کیف و کاور گوشی', 'پاور بانک (شارژ همراه)', 'پایه نگه‌دارنده گوشی'],
+            secMenu: false,
             sec: ['سامسونگ', 'اپل', 'ال جی']
         }
     },
@@ -31,7 +35,7 @@ const isHovered = useElementHover(el)
         <section>
             <div>
                 <div>
-                    <div :class="imgs.hamburger" />
+                    <div @click="main.hamburger = true" :class="imgs.hamburger" />
                     <div>
                         <img :src="imgs.logo" alt="logo">
                         <h3>نام فروشگاه شما</h3>
@@ -65,55 +69,46 @@ const isHovered = useElementHover(el)
                 </div>
             </div>
 
-            <div hidden xl:flex items-end justify-between mt5 px5>
-                <div flex items-end>
-                    <div ref="el" v-auto-animate relative>
-                        <button class="text-xs pb3 flex space-x-reverse space-x1.5 items-center"><span>کالای
+            <div>
+                <div>
+                    <div ref="el" v-auto-animate>
+                        <button><span>کالای
                                 دیجیتال</span>
-                            <div i-carbon-chevron-down class="text-md mt0.9 duration-250"
-                                :class="isHovered ? 'rotate-180': ''" />
+                            <div i-carbon-chevron-down :class="isHovered ? 'rotate-180': ''" />
                         </button>
-                        <div v-if="isHovered"
-                            class="absolute w-45rem bg-white p5 pl10 rounded-b-xl shadow-lg -right-5 border-t border-stone-100">
-                            <div space-x-reverse space-x-20 flex>
-                                <h3 v-for="header in header.mainMenu.header" :key="header" text-xs font-bold
-                                    duration-250 hover:text-custom_red cursor-pointer>{{header}}</h3>
+                        <div v-if="isHovered">
+                            <div>
+                                <h3 v-for="header in header.mainMenu.header" :key="header">{{header}}</h3>
                             </div>
-                            <div class="flex [&_h4]:text-xs [&_h4]:cursor-pointer mt3 mr4">
-                                <div space-y2>
-                                    <h4 v-for="subHeader in firstSumHeader" :key="subHeader"
-                                        class="ml14 duration-250 hover:ml12 hover:pr2 hover:text-custom_red">
+                            <div>
+                                <div>
+                                    <h4 v-for="subHeader in firstSumHeader" :key="subHeader">
                                         {{subHeader}}
                                     </h4>
                                 </div>
-                                <div space-y2>
-                                    <h4 v-for="subHeader in secSubHeader" :key="subHeader"
-                                        class="duration-250 hover:pr2 hover:text-custom_red">{{subHeader}}
+                                <div>
+                                    <h4 v-for="subHeader in secSubHeader" :key="subHeader">{{subHeader}}
                                     </h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div mr10 relative>
-                        <button v-for="headers in header.headers" :key="headers" text-xs pb3 duration-250 px5 first:pr0
-                            last:pl0 hover:text-custom_red>
+                    <div>
+                        <button v-for="headers in header.headers" :key="headers">
                             <router-link to="#">{{headers}}</router-link>
                         </button>
                     </div>
                 </div>
 
                 <div>
-                    <div mr10 relative>
-                        <button v-for="headers in header.offers" :key="headers" text-xs mb3 duration-250 px5 first:pr0
-                            first:border-l first:border-stone-300 last:pl0 hover:text-custom_red>
-                            <router-link to="#">{{headers}}</router-link>
-                        </button>
-                    </div>
+                    <button v-for="headers in header.offers" :key="headers">
+                        <router-link to="#">{{headers}}</router-link>
+                    </button>
                 </div>
             </div>
         </section>
     </header>
+    <TheHamburger :header="header" />
 </template>
 
 <style lang="scss" scoped>
@@ -138,7 +133,7 @@ header {
         margin-right: auto;
         max-width: 420px;
 
-        >:not([hidden])~:not([hidden]) {
+        > :not([hidden]) ~ :not([hidden]) {
             --un-space-y-reverse: 0;
             margin-top: calc(0.5rem * calc(1 - var(--un-space-y-reverse)));
             margin-bottom: calc(0.5rem * var(--un-space-y-reverse));
@@ -157,9 +152,18 @@ header {
 
         @screen xl {
             max-width: 1170px;
+            padding-top: 0.3rem;
+
+            > :not([hidden]) ~ :not([hidden]) {
+                --un-space-y-reverse: 0;
+                margin-top: calc(1.5rem * calc(1 - var(--un-space-y-reverse)));
+                margin-bottom: calc(1.5rem * var(--un-space-y-reverse));
+                --un-divide-y-reverse: 0;
+                border-top-width: 0;
+            }
         }
 
-        >div:nth-child(1) {
+        > div:nth-child(1) {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -169,7 +173,7 @@ header {
                     display: flex;
                     align-items: center;
 
-                    >:not([hidden])~:not([hidden]) {
+                    > :not([hidden]) ~ :not([hidden]) {
                         --un-space-x-reverse: 0;
                         margin-left: calc(2.5rem * calc(1 - var(--un-space-x-reverse)));
                         margin-right: calc(2.5rem * var(--un-space-x-reverse));
@@ -177,7 +181,7 @@ header {
                     }
 
                     @screen xl {
-                        >:not([hidden])~:not([hidden]) {
+                        > :not([hidden]) ~ :not([hidden]) {
                             --un-space-x-reverse: 0;
                             margin-left: calc(0rem * calc(1 - var(--un-space-x-reverse)));
                             margin-right: calc(0rem * var(--un-space-x-reverse));
@@ -188,6 +192,7 @@ header {
                         &:first-child {
                             font-size: 1.5rem;
                             line-height: 2rem;
+                            cursor: pointer;
 
                             @screen xl {
                                 display: none;
@@ -270,7 +275,7 @@ header {
                         &:nth-child(2) {
                             margin-right: 0.5rem;
 
-                            >:not([hidden])~:not([hidden]) {
+                            > :not([hidden]) ~ :not([hidden]) {
                                 --un-space-x-reverse: 0;
                                 margin-left: calc(0.25rem * calc(1 - var(--un-space-x-reverse)));
                                 margin-right: calc(0.25rem * var(--un-space-x-reverse));
@@ -352,7 +357,7 @@ header {
             }
         }
 
-        >div:nth-child(2) {
+        > div:nth-child(2) {
             display: grid;
             grid-template-columns: repeat(5, minmax(0, 1fr));
             align-items: center;
@@ -395,7 +400,7 @@ header {
                 }
             }
 
-            >div:nth-child(2) {
+            > div:nth-child(2) {
                 grid-column: span 2/span 2;
                 display: flex;
                 align-items: center;
@@ -410,10 +415,10 @@ header {
                 padding-top: 3px;
                 padding-bottom: 3px;
 
-                >div:nth-child(2) {
+                > div:nth-child(2) {
                     margin-right: 0.5rem;
 
-                    >:not([hidden])~:not([hidden]) {
+                    > :not([hidden]) ~ :not([hidden]) {
                         --un-space-x-reverse: 0;
                         margin-left: calc(0.25rem * calc(1 - var(--un-space-x-reverse)));
                         margin-right: calc(0.25rem * var(--un-space-x-reverse));
@@ -431,12 +436,207 @@ header {
                         }
                     }
 
-                    >span:nth-child(2) {
+                    > span:nth-child(2) {
                         cursor: initial;
 
                         &:hover {
                             color: #616161;
                         }
+                    }
+                }
+            }
+        }
+
+        > div:nth-child(3) {
+            margin-top: 1.25rem;
+            display: none;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+
+            @screen xl {
+                display: flex;
+            }
+
+            > div:nth-child(1) {
+                display: flex;
+                align-items: flex-end;
+
+
+                > div:nth-child(1) {
+                    position: relative;
+
+                    button:nth-child(1) {
+                        display: flex;
+                        align-items: center;
+                        padding-bottom: 0.75rem;
+                        font-size: 0.75rem;
+                        line-height: 1rem;
+
+                        > :not([hidden]) ~ :not([hidden]) {
+                            --un-space-x-reverse: 0;
+                            margin-left: calc(0.375rem * calc(1 - var(--un-space-x-reverse)));
+                            margin-right: calc(0.375rem * var(--un-space-x-reverse));
+                            --un-space-x-reverse: 1;
+                        }
+
+                        div:nth-child(2) {
+                            margin-top: 0.225rem;
+                            transition-duration: 250ms;
+                        }
+                    }
+
+                    > div:nth-child(2) {
+                        position: absolute;
+                        right: -1.25rem;
+                        width: 45rem;
+                        border-top-width: 1px;
+                        border-top-style: solid;
+                        --un-border-opacity: 1;
+                        border-color: rgba(245, 245, 244, var(--un-border-opacity));
+                        border-bottom-left-radius: 0.75rem;
+                        border-bottom-right-radius: 0.75rem;
+                        --un-bg-opacity: 1;
+                        background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+                        padding: 1.25rem;
+                        padding-left: 2.5rem;
+                        --un-shadow: var(--un-shadow-inset) 0 10px 15px -3px var(--un-shadow-color, rgba(0, 0, 0, 0.1)), var(--un-shadow-inset) 0 4px 6px -4px var(--un-shadow-color, rgba(0, 0, 0, 0.1));
+                        box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);
+
+                        > div:nth-child(1) {
+                            display: flex;
+
+                            > :not([hidden]) ~ :not([hidden]) {
+                                --un-space-x-reverse: 0;
+                                margin-left: calc(5rem * calc(1 - var(--un-space-x-reverse)));
+                                margin-right: calc(5rem * var(--un-space-x-reverse));
+                                --un-space-x-reverse: 1;
+                            }
+
+                            h3 {
+                                cursor: pointer;
+                                font-size: 0.75rem;
+                                line-height: 1rem;
+                                font-weight: 700;
+                                transition-duration: 250ms;
+
+                                &:hover {
+                                    --un-text-opacity: 1;
+                                    color: rgba(230, 70, 94, var(--un-text-opacity));
+                                }
+                            }
+                        }
+
+                        > div:nth-child(2) {
+                            margin-top: 0.75rem;
+                            margin-right: 1rem;
+                            display: flex;
+
+                            h4 {
+                                cursor: pointer;
+                                font-size: 0.75rem;
+                                line-height: 1rem;
+                            }
+
+                            > div:nth-child(1) {
+                                > :not([hidden]) ~ :not([hidden]) {
+                                    --un-space-y-reverse: 0;
+                                    margin-top: calc(0.5rem * calc(1 - var(--un-space-y-reverse)));
+                                    margin-bottom: calc(0.5rem * var(--un-space-y-reverse));
+                                }
+
+                                h4 {
+                                    margin-left: 3.5rem;
+                                    transition-duration: 250ms;
+
+                                    &:hover {
+                                        margin-left: 3rem;
+                                        padding-right: 0.5rem;
+                                        --un-text-opacity: 1;
+                                        color: rgba(230, 70, 94, var(--un-text-opacity));
+                                    }
+                                }
+                            }
+
+                            > div:nth-child(2) {
+                                > :not([hidden]) ~ :not([hidden]) {
+                                    --un-space-y-reverse: 0;
+                                    margin-top: calc(0.5rem * calc(1 - var(--un-space-y-reverse)));
+                                    margin-bottom: calc(0.5rem * var(--un-space-y-reverse));
+                                }
+
+                                h4 {
+                                    transition-duration: 250ms;
+
+                                    &:hover {
+                                        padding-right: 0.5rem;
+                                        --un-text-opacity: 1;
+                                        color: rgba(230, 70, 94, var(--un-text-opacity));
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+
+                > div:nth-child(2) {
+                    position: relative;
+                    margin-right: 2.5rem;
+
+                    button {
+                        padding-left: 1.25rem;
+                        padding-right: 1.25rem;
+                        padding-bottom: 0.75rem;
+                        font-size: 0.75rem;
+                        line-height: 1rem;
+                        transition-duration: 250ms;
+
+                        &:hover {
+                            --un-text-opacity: 1;
+                            color: rgba(230, 70, 94, var(--un-text-opacity));
+                        }
+
+                        &:first-child {
+                            padding-right: 0rem;
+                        }
+
+                        &:last-child {
+                            padding-left: 0rem;
+                        }
+                    }
+                }
+            }
+
+            > div:nth-child(2) {
+                position: relative;
+                margin-right: 2.5rem;
+
+                button {
+                    margin-bottom: 0.75rem;
+                    padding-left: 1.25rem;
+                    padding-right: 1.25rem;
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+                    transition-duration: 250ms;
+
+                    &:first-child {
+                        border-left-width: 1px;
+                        border-left-style: solid;
+                        --un-border-opacity: 1;
+                        border-color: rgba(214, 211, 209, var(--un-border-opacity));
+                        padding-right: 0rem;
+                    }
+
+                    &:last-child {
+                        padding-left: 0rem;
+                    }
+
+                    &:hover {
+                        --un-text-opacity: 1;
+                        color: rgba(230, 70, 94, var(--un-text-opacity));
                     }
                 }
             }

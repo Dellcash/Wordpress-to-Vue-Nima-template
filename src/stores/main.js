@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 
-export const useDataStore = defineStore({
-  id: 'data',
+export const useMainStore = defineStore({
+  id: 'main',
   state: () => ({
-    status: 'Good'
+    hamburger: false,
   }),
   getters: {
   },
