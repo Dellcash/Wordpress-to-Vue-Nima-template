@@ -16,49 +16,42 @@ const subHeader = reactive({
 </script>
 
 <template>
-    <aside relative z-20>
+    <aside>
         <XyzTransition>
-            <div v-if="main.hamburger" @click="main.hamburger = false" xyz="fade"
-                class="fixed top-0 left-0 block w-full h-full bg-[rgba(0,0,0,0.5)]"></div>
+            <div v-if="main.hamburger" @click="main.hamburger = false" xyz="fade"></div>
         </XyzTransition>
 
         <XyzTransition xyz="flip-right origin-right">
-            <div v-if="main.hamburger"
-                class="fixed top-0 right-0 z-10 w-240px h-100% overflow-scroll bg-white sm:w320px">
-                <div i-carbon-close text-3xl m5 mx4 xyz="flip-up-5 delay-2.5 duration-4"
-                    @click="main.hamburger = false" />
-
+            <div v-if="main.hamburger">
+                <div i-carbon-close @click="main.hamburger = false" />
                 <div v-auto-animate>
-                    <div flex items-center px3 relative mb4 @click="menu = !menu">
-                        <div i-carbon-subtract-alt ml1 sm:ml2 sm:text-lg />
-                        <div i-carbon-subtract :class="menu ? 'rotate-180': 'rotate-90'" absolute duration-250
-                            sm:text-lg />
-                        <button text-xs sm:text-sm>کالای دیجیتال</button>
+                    <div @click="menu = !menu">
+                        <div i-carbon-subtract-alt />
+                        <div i-carbon-subtract :class="menu ? 'rotate-180': 'rotate-90'" />
+                        <button>کالای دیجیتال</button>
                     </div>
-                    <div v-if="menu" mr10 space-y-3 mb4 v-auto-animate>
-                        <div flex items-center relative @click="subHeader.first = !subHeader.first">
-                            <div i-carbon-subtract-alt ml1 sm:ml2 sm:text-lg />
-                            <div i-carbon-subtract :class="subHeader.first ? 'rotate-180': 'rotate-90'" absolute
-                                duration-250 sm:text-lg />
-                            <button text-xs sm:text-sm>لوازم جانبی گوشی</button>
+                    <div v-if="menu" class="vwiiky" v-auto-animate>
+                        <div @click="subHeader.first = !subHeader.first">
+                            <div i-carbon-subtract-alt />
+                            <div i-carbon-subtract :class="subHeader.first ? 'rotate-180': 'rotate-90'" />
+                            <button>لوازم جانبی گوشی</button>
                         </div>
-                        <div v-if="subHeader.first" space-y-2 mr10 v-auto-animate sm:mr13>
-                            <button v-for="sub in subHeader.firstMenu" :key="sub" text-xs sm:text-sm>{{sub}}</button>
+                        <div v-if="subHeader.first" class="k934pn" v-auto-animate>
+                            <button v-for="sub in subHeader.firstMenu" :key="sub">{{sub}}</button>
                         </div>
-                        <div flex items-center relative @click="subHeader.sec = !subHeader.sec">
-                            <div i-carbon-subtract-alt ml1 sm:ml2 sm:text-lg />
-                            <div i-carbon-subtract :class="subHeader.sec ? 'rotate-180': 'rotate-90'" absolute
-                                duration-250 sm:text-lg />
-                            <button text-xs sm:text-sm>گوشی موبایل</button>
+                        <div class="e332c" @click="subHeader.sec = !subHeader.sec">
+                            <div i-carbon-subtract-alt />
+                            <div i-carbon-subtract :class="subHeader.sec ? 'rotate-180': 'rotate-90'" />
+                            <button>گوشی موبایل</button>
                         </div>
-                        <div v-if="subHeader.sec" space-y-2 mr10 sm:mr13 flex flex-col items-start>
-                            <button v-for="sub in subHeader.secMenu" :key="sub" text-xs sm:text-sm>{{sub}}</button>
+                        <div v-if="subHeader.sec" class="xoaj93">
+                            <button v-for="sub in subHeader.secMenu" :key="sub">{{sub}}</button>
                         </div>
-                        <button v-for="head in header.mainMenu.header.slice(2,4)" :key="head" text-xs pr5
-                            sm:text-sm>{{head}}</button>
+                        <button v-for="head in header.mainMenu.header.slice(2,4)" :key="head"
+                            class="bk4lzv">{{head}}</button>
                     </div>
-                    <div space-y-4 flex flex-col items-start>
-                        <button v-for="head in header.headers" :key="head" text-xs mr8 sm:text-sm>{{head}}</button>
+                    <div class="bfvy6a">
+                        <button v-for="head in header.headers" :key="head">{{head}}</button>
                     </div>
                 </div>
             </div>
@@ -67,5 +60,263 @@ const subHeader = reactive({
 </template>
 
 <style lang="scss" scoped>
+aside {
+    position: relative;
+    z-index: 20;
 
+    > div:nth-child(1) {
+        position: fixed;
+        top: 0rem;
+        left: 0rem;
+        display: block;
+        width: 100%;
+        height: 100%;
+        --un-bg-opacity: 0.5;
+        background-color: rgba(0, 0, 0, var(--un-bg-opacity));
+    }
+
+    > div:nth-child(2) {
+        position: fixed;
+        top: 0rem;
+        right: 0rem;
+        z-index: 10;
+        width: 240px;
+        height: 100%;
+        overflow: scroll;
+        --un-bg-opacity: 1;
+        background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+
+        @screen sm {
+            width: 320px
+        }
+
+        > div:nth-child(1) {
+            margin: 1.25rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            cursor: pointer;
+
+            @screen sm {
+                font-size: 2.25rem;
+                line-height: 2.5rem;
+            }
+        }
+
+        > div:nth-child(2) {
+            padding-bottom: 2rem;
+            @screen sm {
+                padding-right: 0.5rem;
+            }
+
+            > div:nth-child(1) {
+                position: relative;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+
+                > div:nth-child(1) {
+                    margin-left: 0.25rem;
+
+                    @screen sm {
+                        margin-left: 0.5rem;
+                        font-size: 1.125rem;
+                        line-height: 1.75rem;
+                    }
+                }
+
+                > div:nth-child(2) {
+                    position: absolute;
+                    transition-duration: 250ms;
+
+                    @screen sm {
+                        font-size: 1.125rem;
+                        line-height: 1.75rem;
+                    }
+                }
+
+                button {
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+
+                    @screen sm {
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                    }
+                }
+            }
+
+            .vwiiky {
+                margin-right: 2.5rem;
+                margin-bottom: 1rem;
+
+                > :not([hidden]) ~ :not([hidden]) {
+                    --un-space-y-reverse: 0;
+                    margin-top: calc(0.75rem * calc(1 - var(--un-space-y-reverse)));
+                    margin-bottom: calc(0.75rem * var(--un-space-y-reverse));
+                }
+
+                > div:nth-child(1) {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+
+                    > div:nth-child(1) {
+                        margin-left: 0.25rem;
+
+                        @screen sm {
+                            margin-left: 0.5rem;
+                            font-size: 1.125rem;
+                            line-height: 1.75rem;
+                        }
+                    }
+
+                    > div:nth-child(2) {
+                        position: absolute;
+                        transition-duration: 250ms;
+
+                        @screen sm {
+                            font-size: 1.125rem;
+                            line-height: 1.75rem;
+                        }
+                    }
+
+                    button {
+                        font-size: 0.75rem;
+                        line-height: 1rem;
+
+                        @screen sm {
+                            font-size: 0.875rem;
+                            line-height: 1.25rem;
+                        }
+                    }
+                }
+            }
+
+            .k934pn {
+                margin-right: 2.5rem;
+
+                > :not([hidden]) ~ :not([hidden]) {
+                    --un-space-y-reverse: 0;
+                    margin-top: calc(0.5rem * calc(1 - var(--un-space-y-reverse)));
+                    margin-bottom: calc(0.5rem * var(--un-space-y-reverse));
+                }
+
+                @screen sm {
+                    margin-right: 3.25rem;
+                }
+
+                button {
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+
+                    @screen sm {
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                    }
+                }
+            }
+
+            .e332c {
+                position: relative;
+                display: flex;
+                align-items: center;
+
+                > div:nth-child(1) {
+                    margin-left: 0.25rem;
+
+                    @screen sm {
+                        margin-left: 0.5rem;
+                        font-size: 1.125rem;
+                        line-height: 1.75rem;
+                    }
+                }
+
+                > div:nth-child(2) {
+                    position: absolute;
+                    transition-duration: 250ms;
+
+                    @screen sm {
+                        font-size: 1.125rem;
+                        line-height: 1.75rem;
+                    }
+                }
+
+                button {
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+
+                    @screen sm {
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                    }
+                }
+            }
+
+            .xoaj93 {
+                margin-right: 2.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                > :not([hidden]) ~ :not([hidden]) {
+                    --un-space-y-reverse: 0;
+                    margin-top: calc(0.5rem * calc(1 - var(--un-space-y-reverse)));
+                    margin-bottom: calc(0.5rem * var(--un-space-y-reverse));
+                }
+
+                @screen sm {
+                    margin-right: 3.25rem;
+                }
+
+                button {
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+
+                    @screen sm {
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                    }
+                }
+            }
+
+            .bk4lzv {
+                padding-right: 1.25rem;
+                font-size: 0.75rem;
+                line-height: 1rem;
+
+                @screen sm {
+                    font-size: 0.875rem;
+                    line-height: 1.25rem;
+                }
+            }
+        }
+
+        .bfvy6a {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            > :not([hidden]) ~ :not([hidden]) {
+                --un-space-y-reverse: 0;
+                margin-top: calc(1rem * calc(1 - var(--un-space-y-reverse)));
+                margin-bottom: calc(1rem * var(--un-space-y-reverse));
+            }
+
+            button {
+                margin-right: 2rem;
+                font-size: 0.75rem;
+                line-height: 1rem;
+
+                @screen sm {
+                    font-size: 0.875rem;
+                    line-height: 1.25rem;
+                }
+            }
+        }
+    }
+}
 </style>
