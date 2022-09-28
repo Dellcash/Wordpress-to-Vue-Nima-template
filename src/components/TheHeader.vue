@@ -53,7 +53,7 @@ const isHovered = useElementHover(el)
                         <span>ثبت‌ نام</span>
                     </div>
                 </div>
-                <div :class="imgs.basket" />
+                <div :class="imgs.basket"  @click="main.sideCard = !main.sideCard"/>
             </div>
 
             <div>
@@ -109,6 +109,7 @@ const isHovered = useElementHover(el)
         </section>
     </header>
     <TheHamburger :header="header" />
+    <TheSideCard />
 </template>
 
 <style lang="scss" scoped>
@@ -305,6 +306,7 @@ header {
                 }
 
                 &:nth-child(4) {
+                    cursor: pointer;
                     font-size: 1.5rem;
                     line-height: 2rem;
                     --un-text-opacity: 1;
