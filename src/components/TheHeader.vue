@@ -503,6 +503,7 @@ header {
                         background-color: rgba(255, 255, 255, var(--un-bg-opacity));
                         padding: 1.25rem;
                         padding-left: 2.5rem;
+                        z-index: 10;
                         --un-shadow: var(--un-shadow-inset) 0 10px 15px -3px var(--un-shadow-color, rgba(0, 0, 0, 0.1)), var(--un-shadow-inset) 0 4px 6px -4px var(--un-shadow-color, rgba(0, 0, 0, 0.1));
                         box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);
 

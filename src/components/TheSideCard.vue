@@ -14,7 +14,7 @@ const main = useMainStore()
             <div v-if="main.sideCard">
                 <header>
                     <h3>سبد خرید</h3>
-                    <div i-carbon-close @click="main.sideCard = false" xyz="short front stagger" />
+                    <div i-carbon-close @click="main.sideCard = false" xyz="short front stagger" class="xyz-nested"/>
                 </header>
                 <main>
                     <section>
