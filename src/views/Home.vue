@@ -1,23 +1,39 @@
 <script setup>
 import 'vue3-carousel/dist/carousel.css';
-import { Carousel, Slide, Pagination } from 'vue3-carousel'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import axios from 'axios'
 
 const banners = ref([])
 const loading = ref(false)
+const products = ref([])
 const getData = () => {
    loading.value = true
    axios.get('https://api.npoint.io/a9c4af8bc27d841e1208')
       .then(res => {
          loading.value = false
          banners.value = res.data.banner
+         products.value = res.data.products
       }).catch(err => {
          console.log(err);
       })
 }
 getData()
-</script>
 
+const settings = reactive({
+   itemsToShow: 1,
+   snapAlign: 'center',
+})
+const breakpoints = reactive({
+   768: {
+      itemsToShow: 2.2,
+      snapAlign: 'center',
+   },
+   1028: {
+      itemsToShow: 5,
+      snapAlign: 'start',
+   },
+})
+</script>
 <template>
    <main>
       <!-- <section class="d8cizg">
@@ -45,6 +61,38 @@ getData()
             </div>
          </div>
       </section> -->
+
+      <section bg-custom_red>
+         <div layout grid grid-cols-12>
+            <div col-span-5 justify-center py7 mx5>
+               <img src="../assets/images/sticker.png" alt="sticher">
+               <button bg-transparent text-white duration-250 border-white border py1 px4 hover:bg-white
+                  hover:text-custom_red rounded-lg text-10px sm:text-xs sm:py2 sm:px6>مشاهده همه</button>
+            </div>
+
+            <div col-span-7 z-1000 p5 pr0>
+               <Carousel v-if="banners.length !== 0" :autoplay="2000" :wrap-around="true" :items-to-show="2.5"
+                  :settings="settings" :breakpoints="breakpoints">
+                  <Slide v-for="product in products" :key="product" md:mx-2>
+                     <div bg-white rounded-lg>
+                        <!-- resizing height of images on md -->
+                        <img :src="product.img" alt="product" pt5 pb10 hfull>
+                        <div text-10px text-right pb2 px3 sm:text-sm>
+                           <h4 mb1 text-black>{{product.title}}</h4>
+                           <h4 line-through>{{product.beforeOff}}</h4>
+                           <h4 text-custom_red>{{product.afterOff}}</h4>
+                        </div>
+                     </div>
+                  </Slide>
+
+                  <template #addons>
+                     <Pagination />
+                  </template>
+               </Carousel>
+            </div>
+
+         </div>
+      </section>
    </main>
 </template>
 
@@ -127,18 +175,13 @@ getData()
       }
 
       .tq394d {
-         grid-column: span 4/span 4;
+         display: none;
 
          > div {
-            display: none;
-            flex-direction: column;
-
-            &:first-child {
-               margin-bottom: 0.75rem;
-            }
+            grid-column: span 6/span 6;
 
             @screen xl {
-               display: flex;
+               grid-column: span 12/span 12;
             }
 
             img {
@@ -146,9 +189,27 @@ getData()
                border-radius: 0.75rem;
             }
          }
+
+         @screen md {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            grid-gap: 0.75rem;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+         }
+
+         @screen xl {
+            flex-direction: column;
+            grid-column: span 4/span 4;
+            margin-top: 0 !important;
+         }
       }
    }
 
    // shit
+}
+
+.carousel__pagination {
+   display: none;
 }
 </style>
