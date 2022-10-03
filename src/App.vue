@@ -1,6 +1,17 @@
+<script setup>
+import { useMainStore } from './stores/main';
+
+const mainStore = useMainStore()
+
+mainStore.getData()
+</script>
+
 <template>
-  <TheHeader />
-  <RouterView />
+  <div v-if="mainStore.mainLoading" text-5xl>Loading</div>
+  <div v-else>
+    <TheHeader />
+    <RouterView />
+  </div>
 </template>
 
 <style>

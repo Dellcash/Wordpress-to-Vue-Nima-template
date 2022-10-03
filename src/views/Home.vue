@@ -1,23 +1,9 @@
 <script setup>
 import 'vue3-carousel/dist/carousel.css';
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import axios from 'axios'
+import { Carousel, Slide, Pagination } from 'vue3-carousel'
+import { useMainStore } from '../stores/main';
 
-const banners = ref([])
-const loading = ref(false)
-const products = ref([])
-const getData = () => {
-   loading.value = true
-   axios.get('https://api.npoint.io/a9c4af8bc27d841e1208')
-      .then(res => {
-         loading.value = false
-         banners.value = res.data.banner
-         products.value = res.data.products
-      }).catch(err => {
-         console.log(err);
-      })
-}
-getData()
+const mainStore = useMainStore()
 
 const settings = reactive({
    itemsToShow: 1,
@@ -39,11 +25,11 @@ const breakpoints = reactive({
       <section class="d8cizg">
          <img src="../assets/images/banner_1.jpg" alt="banner" class="mg168v">
          <div>
-            <div i-carbon-circle-dash class="mplxao" v-if="loading" />
+            <div i-carbon-circle-dash class="mplxao" v-if="mainStore.mainLoading" />
             <div v-else class="o0mvcf">
                <div>
-                  <Carousel v-if="banners.length !== 0" :autoplay="2000" :wrap-around="true" dir="rtl">
-                     <Slide v-for="banner in banners.slice(0, 4)" :key="banner">
+                  <Carousel v-if="mainStore.banners.length !== 0" :autoplay="2000" :wrap-around="true" dir="rtl">
+                     <Slide v-for="banner in mainStore.banners.slice(0, 4)" :key="banner">
                         <img :src="banner" alt="banner">
                      </Slide>
 
@@ -54,7 +40,7 @@ const breakpoints = reactive({
                </div>
 
                <div class="tq394d">
-                  <div v-for="gif in banners.slice(4,6)" :key="gif">
+                  <div v-for="gif in mainStore.banners.slice(4,6)" :key="gif">
                      <img :src="gif" alt="banner">
                   </div>
                </div>
@@ -73,9 +59,9 @@ const breakpoints = reactive({
             </div>
 
             <div col-span-7 p5 z-1000 pr0 md:col-span-8 xl:col-span-9 z-auto>
-               <Carousel v-if="banners.length !== 0" :autoplay="2000" :wrap-around="true" :settings="settings"
-                  :breakpoints="breakpoints">
-                  <Slide v-for="product in products" :key="product" px2>
+               <Carousel v-if="mainStore.products.length !== 0" :autoplay="2000" :wrap-around="true"
+                  :settings="settings" :breakpoints="breakpoints">
+                  <Slide v-for="product in mainStore.products" :key="product" px2>
                      <div bg-white rounded-lg>
                         <!-- resizing height of images on md -->
                         <img :src="product.img" alt="product" pt5 pb10 hfull>
