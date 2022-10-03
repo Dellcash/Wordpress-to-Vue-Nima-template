@@ -4,6 +4,7 @@ import { Carousel, Slide, Pagination } from 'vue3-carousel'
 import { useMainStore } from '../stores/main';
 
 const mainStore = useMainStore()
+const mainLoading = computed(() => mainStore.mainLoading)
 
 const settings = reactive({
    itemsToShow: 1,
@@ -22,11 +23,10 @@ const breakpoints = reactive({
 </script>
 <template>
    <main>
-      <section class="d8cizg">
-         <img src="../assets/images/banner_1.jpg" alt="banner" class="mg168v">
+      <section>
+         <img src="../assets/images/banner_1.jpg" alt="banner">
          <div>
-            <div i-carbon-circle-dash class="mplxao" v-if="mainStore.mainLoading" />
-            <div v-else class="o0mvcf">
+            <div>
                <div>
                   <Carousel v-if="mainStore.banners.length !== 0" :autoplay="2000" :wrap-around="true" dir="rtl">
                      <Slide v-for="banner in mainStore.banners.slice(0, 4)" :key="banner">
@@ -39,7 +39,7 @@ const breakpoints = reactive({
                   </Carousel>
                </div>
 
-               <div class="tq394d">
+               <div>
                   <div v-for="gif in mainStore.banners.slice(4,6)" :key="gif">
                      <img :src="gif" alt="banner">
                   </div>
@@ -49,16 +49,16 @@ const breakpoints = reactive({
       </section>
 
       <!-- shit-->
-      <section class=":: bg-custom_red">
-         <div layout grid grid-cols-12 md:py5 py3>
-            <div col-span-5 justify-center py7 mx5 md:col-span-4 xl:col-span-3 md:pr-5>
+      <section>
+         <div>
+            <div class=":: col-span-5 justify-center py7 mx5 md:col-span-4 xl:col-span-3 md:pr-5 xl:mr-0">
                <img src="../assets/images/sticker.png" alt="sticher">
                <button bg-transparent text-white duration-250 border-white border py1 px4 hover:bg-white
                   hover:text-custom_red rounded-lg text-10px sm:text-xs sm:py2 sm:px6 xl:py3 xl:px8 xl:mt3>مشاهده
                   همه</button>
             </div>
 
-            <div col-span-7 p5 z-1000 pr0 md:col-span-8 xl:col-span-9 z-auto>
+            <div col-span-7 p5 z-1000 pr0 md:col-span-8 xl:col-span-9 z-auto pl1>
                <Carousel v-if="mainStore.products.length !== 0" :autoplay="2000" :wrap-around="true"
                   :settings="settings" :breakpoints="breakpoints">
                   <Slide v-for="product in mainStore.products" :key="product" px2>
@@ -87,7 +87,7 @@ const breakpoints = reactive({
 
 <style lang="scss" scoped>
 main {
-   .d8cizg {
+   > section:nth-child(1) {
       margin-left: auto;
       margin-right: auto;
       max-width: 420px;
@@ -101,7 +101,7 @@ main {
          max-width: 1170px;
       }
 
-      .mg168v {
+      > img:nth-child(1) {
          width: 100%;
          height: 2rem;
          border-radius: 0.75rem;
@@ -124,25 +124,7 @@ main {
          margin-top: 0.75rem;
          width: 100%;
 
-         .mplxao {
-            @keyframes spin {
-               from {
-                  transform: rotate(0deg)
-               }
-
-               to {
-                  transform: rotate(360deg)
-               }
-            }
-
-            margin: auto;
-            height: 7.5rem;
-            animation: spin 1s linear infinite;
-            font-size: 2.25rem;
-            line-height: 2.5rem;
-         }
-
-         .o0mvcf {
+         > div:nth-child(1) {
             @screen xl {
                display: grid;
                grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -164,7 +146,7 @@ main {
             }
          }
 
-         .tq394d {
+         > div > div:nth-child(2) {
             display: none;
 
             > div {
@@ -197,7 +179,31 @@ main {
       }
    }
 
-   section:nth-child(2) {}
+   section:nth-child(2) {
+      --un-bg-opacity: 1;
+      background-color: rgba(230, 70, 94, var(--un-bg-opacity));
+
+      > div:nth-child(1) {
+         display: grid;
+         grid-template-columns: repeat(12, minmax(0, 1fr));
+         margin-left: auto;
+         margin-right: auto;
+         max-width: 420px;
+         padding-top: 0.75rem;
+         padding-bottom: 0.75rem;
+
+         @screen md {
+            max-width: 768px;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+         }
+
+         @screen xl {
+            max-width: 1170px;
+         }
+         > div:nth-child(1){}
+      }
+   }
 
    // shit
 }

@@ -7,7 +7,7 @@ mainStore.getData()
 </script>
 
 <template>
-  <div v-if="mainStore.mainLoading" text-5xl>Loading</div>
+  <Spinner v-if="mainStore.mainLoading" class="spinner"/>
   <div v-else>
     <TheHeader />
     <RouterView />
@@ -31,5 +31,14 @@ body {
 
 button:focus {
   outline: none;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translate(-50%, -50%);
 }
 </style>
