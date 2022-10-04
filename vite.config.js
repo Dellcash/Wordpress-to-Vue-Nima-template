@@ -32,7 +32,8 @@ export default defineConfig({
         colors: {
           custom_red: '#e6465e',
           custom_gray: '#565656',
-          custom_green: '#43BFD4'
+          custom_blue: '#43BFD4',
+          custom_green: '#6bb927'
         }
       }
     }),

@@ -7,7 +7,7 @@ mainStore.getData()
 </script>
 
 <template>
-  <Spinner v-if="mainStore.mainLoading" class="spinner"/>
+  <Spinner v-if="mainStore.mainLoading" class="spinner "/>
   <div v-else>
     <TheHeader />
     <RouterView />

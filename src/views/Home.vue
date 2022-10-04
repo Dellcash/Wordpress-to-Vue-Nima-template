@@ -4,8 +4,11 @@ import { Carousel, Slide, Pagination } from 'vue3-carousel'
 import { useMainStore } from '../stores/main';
 
 const mainStore = useMainStore()
-const mainLoading = computed(() => mainStore.mainLoading)
-
+const banner = 'https://theme46.mywebzi.ir/uploads/1fcaf4d3bc444859b3ef22319d692161.w_1140,h_78,r_k.jpg'
+const sticker = {
+   first: 'https://theme46.mywebzi.ir/uploads/6f06c194614d41668b6706b896468d58.w_165,h_287,r_k.png',
+   sec: 'https://theme46.mywebzi.ir/uploads/f35f8ab5778848cc9ee280002d0157f1.w_162,h_283,r_k.png'
+}
 const settings = reactive({
    itemsToShow: 1,
    snapAlign: 'center',
@@ -24,7 +27,7 @@ const breakpoints = reactive({
 <template>
    <main>
       <section>
-         <img src="../assets/images/banner_1.jpg" alt="banner">
+         <img :src="banner" alt="banner">
          <div>
             <div>
                <div>
@@ -51,24 +54,61 @@ const breakpoints = reactive({
       <!-- shit-->
       <section>
          <div>
-            <div class=":: col-span-5 justify-center py7 mx5 md:col-span-4 xl:col-span-3 md:pr-5 xl:mr-0">
-               <img src="../assets/images/sticker.png" alt="sticher">
-               <button bg-transparent text-white duration-250 border-white border py1 px4 hover:bg-white
-                  hover:text-custom_red rounded-lg text-10px sm:text-xs sm:py2 sm:px6 xl:py3 xl:px8 xl:mt3>مشاهده
+            <div>
+               <img :src="sticker.first" alt="sticher">
+               <button>مشاهده
                   همه</button>
             </div>
 
-            <div col-span-7 p5 z-1000 pr0 md:col-span-8 xl:col-span-9 z-auto pl1>
+            <div>
                <Carousel v-if="mainStore.products.length !== 0" :autoplay="2000" :wrap-around="true"
                   :settings="settings" :breakpoints="breakpoints">
-                  <Slide v-for="product in mainStore.products" :key="product" px2>
-                     <div bg-white rounded-lg>
-                        <!-- resizing height of images on md -->
+                  <Slide v-for="product in mainStore.products.slice(0,5)" :key="product" px2>
+                     <div class="dmrcr">
                         <img :src="product.img" alt="product" pt5 pb10 hfull>
                         <div text-10px text-right pb2 px3 sm:text-sm text-ellipsis overflow-x-hidden whitespace-nowrap
                            style="direction: rtl;">
                            <h4 mb1 text-black w20>{{product.title}}</h4>
                            <h4 line-through>{{product.beforeOff}}</h4>
+                           <h4 text-custom_red>{{product.afterOff}}</h4>
+                        </div>
+                     </div>
+                  </Slide>
+
+                  <template #addons>
+                     <Pagination />
+                  </template>
+               </Carousel>
+            </div>
+
+         </div>
+      </section>
+
+      <section layout p2 md:p4 xl:pr0 xl:pl0 xl:my1>
+         <div grid grid-cols-2 gap2 md:grid-cols-4>
+            <img v-for="banner in mainStore.banners.slice(6,10)" :key="banner" :src="banner" alt="banner"
+               class="rounded-xl">
+         </div>
+      </section>
+
+      <section>
+         <div>
+            <div>
+               <img :src="sticker.sec" alt="sticher" class="xl:w75%">
+               <button bg-transparent text-white duration-250 border-white border py1 px4 hover:bg-white
+                  hover:text-custom_green rounded-lg text-8px sm:text-xs sm:py2 sm:px6 xl:py3 xl:px8 xl:mt3>مشاهده
+                  همه</button>
+            </div>
+
+            <div col-span-7 p5 z-1000 pr0 md:col-span-8 xl:col-span-9 z-auto pl1>
+               <Carousel v-if="mainStore.products.length !== 0" :wrap-around="true" :autoplay="2000" dir="rtl"
+                  :settings="settings" :breakpoints="breakpoints">
+                  <Slide v-for="product in mainStore.products.slice(5,9)" :key="product" px2>
+                     <div bg-white rounded-lg>
+                        <img :src="product.img" alt="product" pt5 pb10 wfull>
+                        <div text-10px text-right pb2 px3 sm:text-sm text-ellipsis overflow-x-hidden whitespace-nowrap
+                           style="direction: rtl;">
+                           <h4 mb1 text-black w20>{{product.title}}</h4>
                            <h4 text-custom_red>{{product.afterOff}}</h4>
                         </div>
                      </div>
@@ -138,6 +178,8 @@ main {
                img {
                   width: 100%;
                   border-radius: 0.75rem;
+                  --un-shadow: var(--un-shadow-inset) 0 20px 25px -5px var(--un-shadow-color, rgba(0, 0, 0, 0.1)), var(--un-shadow-inset) 0 8px 10px -6px var(--un-shadow-color, rgba(0, 0, 0, 0.1));
+                  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);
 
                   @screen xl {
                      height: 24.2rem;
@@ -201,11 +243,145 @@ main {
          @screen xl {
             max-width: 1170px;
          }
-         > div:nth-child(1){}
+
+         > div:nth-child(1) {
+            grid-column: span 5/span 5;
+            margin-left: 1.25rem;
+            margin-right: 1.25rem;
+            justify-content: center;
+            padding-top: 1.75rem;
+            padding-bottom: 1.75rem;
+
+            @screen md {
+               grid-column: span 4/span 4;
+               padding-right: 1.25rem;
+            }
+
+            @screen xl {
+               grid-column: span 3/span 3;
+               margin-right: 0rem;
+            }
+
+            > img:nth-child(1) {
+               @screen xl {
+                  width: 75%;
+               }
+            }
+
+            > button:nth-child(2) {
+               border-width: 1px;
+               border-style: solid;
+               --un-border-opacity: 1;
+               border-color: rgba(255, 255, 255, var(--un-border-opacity));
+               border-radius: 0.5rem;
+               background-color: transparent;
+               padding-top: 0.25rem;
+               padding-bottom: 0.25rem;
+               padding-left: 1rem;
+               padding-right: 1rem;
+               font-size: 8px;
+               --un-text-opacity: 1;
+               color: rgba(255, 255, 255, var(--un-text-opacity));
+               transition-duration: 250ms;
+
+               &:hover {
+                  --un-bg-opacity: 1;
+                  background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+                  --un-text-opacity: 1;
+                  color: rgba(230, 70, 94, var(--un-text-opacity));
+               }
+
+               @screen sm {
+                  padding-top: 0.5rem;
+                  padding-bottom: 0.5rem;
+                  padding-left: 1.5rem;
+                  padding-right: 1.5rem;
+                  font-size: 0.75rem;
+                  line-height: 1rem;
+               }
+
+               @screen xl {
+                  margin-top: 0.75rem;
+                  padding-top: 0.75rem;
+                  padding-bottom: 0.75rem;
+                  padding-left: 2rem;
+                  padding-right: 2rem;
+               }
+            }
+         }
+
+         > div:nth-child(2) {
+            z-index: 1000;
+            z-index: auto;
+            grid-column: span 7/span 7;
+            padding: 1.25rem;
+            padding-right: 0rem;
+            padding-left: 0.25rem;
+
+            @screen md {
+               grid-column: span 8/span 8;
+            }
+
+            @screen xl {
+               grid-column: span 9/span 9;
+            }
+
+            .dmrcr {
+               border-radius: 0.5rem;
+               --un-bg-opacity: 1;
+               background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+            }
+         }
       }
    }
 
    // shit
+   section:nth-child(3) {}
+
+   section:nth-child(4) {
+      --un-bg-opacity: 1 !important;
+      background-color: rgba(107, 185, 39, var(--un-bg-opacity)) !important;
+
+      > div:nth-child(1) {
+         display: grid;
+         grid-template-columns: repeat(12, minmax(0, 1fr));
+         margin-left: auto;
+         margin-right: auto;
+         max-width: 420px;
+         padding-top: 0.75rem;
+         padding-bottom: 0.75rem;
+
+         @screen md {
+            max-width: 768px;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+         }
+
+         @screen xl {
+            max-width: 1170px;
+         }
+
+         > div:nth-child(1) {
+            grid-column: span 5/span 5;
+            margin-left: 1.25rem;
+            margin-right: 1.25rem;
+            justify-content: center;
+            padding-top: 1.75rem;
+            padding-bottom: 1.75rem;
+
+            @screen md {
+               grid-column: span 4/span 4;
+               padding-right: 1.25rem;
+            }
+
+            @screen xl {
+               grid-column: span 3/span 3;
+               margin-right: 0rem;
+            }
+         }
+      }
+   }
+
 }
 
 .carousel__pagination {
