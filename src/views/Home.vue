@@ -96,16 +96,15 @@ const breakpoints = reactive({
                   همه</button>
             </div>
 
-            <div col-span-7 p5 z-1000 pr0 md:col-span-8 xl:col-span-9 z-auto pl1>
+            <div>
                <Carousel v-if="mainStore.products.length !== 0" :wrap-around="true" :autoplay="2000" dir="rtl"
                   :settings="settings" :breakpoints="breakpoints">
                   <Slide v-for="product in mainStore.products.slice(5,9)" :key="product" px2>
-                     <div bg-white rounded-lg>
-                        <img :src="product.img" alt="product" pt5 pb10 wfull>
-                        <div text-10px text-right pb2 px3 sm:text-sm text-ellipsis overflow-x-hidden whitespace-nowrap
-                           style="direction: rtl;">
-                           <h4 mb1 text-black w20>{{product.title}}</h4>
-                           <h4 text-custom_red>{{product.afterOff}}</h4>
+                     <div class="dmrcr">
+                        <img :src="product.img" alt="product">
+                        <div>
+                           <h4>{{product.title}}</h4>
+                           <h4>{{product.afterOff}}</h4>
                         </div>
                      </div>
                   </Slide>
@@ -241,11 +240,15 @@ main {
 
          > div:nth-child(1) {
             grid-column: span 5/span 5;
-            margin-left: 1.25rem;
+            margin-left: 0.25rem;
             margin-right: 1.25rem;
             justify-content: center;
             padding-top: 1.75rem;
             padding-bottom: 1.75rem;
+
+            @screen sm {
+               margin-left: 1.25rem;
+            }
 
             @screen md {
                grid-column: span 4/span 4;
@@ -274,7 +277,7 @@ main {
                padding-bottom: 0.25rem;
                padding-left: 1rem;
                padding-right: 1rem;
-               font-size: 8px;
+               font-size: 10px;
                --un-text-opacity: 1;
                color: rgba(255, 255, 255, var(--un-text-opacity));
                transition-duration: 250ms;
@@ -432,11 +435,15 @@ section:nth-child(4) {
 
       > div:nth-child(1) {
          grid-column: span 5/span 5;
-         margin-left: 1.25rem;
+         margin-left: 0.25rem;
          margin-right: 1.25rem;
          justify-content: center;
          padding-top: 1.75rem;
          padding-bottom: 1.75rem;
+
+         @screen sm {
+            margin-left: 1.25rem;
+         }
 
          @screen md {
             grid-column: span 4/span 4;
@@ -466,7 +473,7 @@ section:nth-child(4) {
             padding-bottom: 0.25rem;
             padding-left: 1rem;
             padding-right: 1rem;
-            font-size: 8px;
+            font-size: 10px;
             --un-text-opacity: 1;
             color: rgba(255, 255, 255, var(--un-text-opacity));
             transition-duration: 250ms;
@@ -496,8 +503,65 @@ section:nth-child(4) {
             }
          }
       }
-   }
 
+      > div:nth-child(2) {
+         z-index: 1000;
+         z-index: auto;
+         grid-column: span 7/span 7;
+         padding: 1.25rem;
+         padding-right: 0rem;
+         padding-left: 0.25rem;
+
+         @screen md {
+            grid-column: span 8/span 8;
+         }
+
+         @screen xl {
+            grid-column: span 9/span 9;
+         }
+
+         .dmrcr {
+            border-radius: 0.5rem;
+            --un-bg-opacity: 1;
+            background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+
+            img {
+               width: 100%;
+               padding-top: 1.25rem;
+               padding-bottom: 2.5rem;
+            }
+
+            div {
+               overflow-x: hidden;
+               text-overflow: ellipsis;
+               white-space: nowrap;
+               padding-left: 0.75rem;
+               padding-right: 0.75rem;
+               padding-bottom: 0.5rem;
+               text-align: right;
+               font-size: 10px;
+               direction: rtl;
+
+               @screen sm {
+                  font-size: 0.875rem;
+                  line-height: 1.25rem;
+               }
+
+               > h4:nth-child(1) {
+                  margin-bottom: 0.25rem;
+                  width: 5rem;
+                  --un-text-opacity: 1;
+                  color: rgba(0, 0, 0, var(--un-text-opacity));
+               }
+
+               > h4:nth-child(2) {
+                  --un-text-opacity: 1;
+                  color: rgba(230, 70, 94, var(--un-text-opacity));
+               }
+            }
+         }
+      }
+   }
 }
 
 .carousel__pagination {
