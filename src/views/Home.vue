@@ -87,7 +87,6 @@ const breakpoints = reactive({
          </div>
       </section>
 
-      <!-- shit-->
       <section>
          <div>
             <div>
@@ -116,9 +115,20 @@ const breakpoints = reactive({
             </div>
          </div>
       </section>
+
+      <section>
+         <div>
+            <img v-for="banner in mainStore.banners.slice(10,12)" :src="banner" alt="banner">
+         </div>
+      </section>
+
+      <!-- shit-->
+      <section>
+       
+      </section>
    </main>
 </template>
-
+      
 <style lang="scss" scoped>
 main {
    > section:nth-child(1) {
@@ -380,7 +390,6 @@ main {
 
       @screen md {
          max-width: 768px;
-         // padding: 0.75rem 1rem;
       }
 
       @screen xl {
@@ -400,170 +409,212 @@ main {
          @screen md {
             grid-template-columns: repeat(4, minmax(0, 1fr));
          }
+         @screen xl {
+            grid-gap: 0.75rem;
+            gap: 0.75rem;
+         }
+         img {
+            border-radius: 0.75rem;
+            width: 100%;
+         }
+
+      }
+   }
+
+   section:nth-child(4) {
+      --un-bg-opacity: 1 !important;
+      background-color: rgba(107, 185, 39, var(--un-bg-opacity)) !important;
+
+      > div:nth-child(1) {
+         display: grid;
+         grid-template-columns: repeat(12, minmax(0, 1fr));
+         margin-left: auto;
+         margin-right: auto;
+         max-width: 420px;
+         padding-top: 0.75rem;
+         padding-bottom: 0.75rem;
+
+         @screen md {
+            max-width: 768px;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+         }
+
+         @screen xl {
+            max-width: 1170px;
+         }
+
+         > div:nth-child(1) {
+            grid-column: span 5/span 5;
+            margin-left: 0.25rem;
+            margin-right: 1.25rem;
+            justify-content: center;
+            padding-top: 1.75rem;
+            padding-bottom: 1.75rem;
+
+            @screen sm {
+               margin-left: 1.25rem;
+            }
+
+            @screen md {
+               grid-column: span 4/span 4;
+               padding-right: 1.25rem;
+            }
+
+            @screen xl {
+               grid-column: span 3/span 3;
+               margin-right: 0rem;
+            }
+
+            > img:nth-child(1) {
+               @screen xl {
+                  width: 75%;
+               }
+
+            }
+
+            > button:nth-child(2) {
+               border-width: 1px;
+               border-style: solid;
+               --un-border-opacity: 1;
+               border-color: rgba(255, 255, 255, var(--un-border-opacity));
+               border-radius: 0.5rem;
+               background-color: transparent;
+               padding-top: 0.25rem;
+               padding-bottom: 0.25rem;
+               padding-left: 1rem;
+               padding-right: 1rem;
+               font-size: 10px;
+               --un-text-opacity: 1;
+               color: rgba(255, 255, 255, var(--un-text-opacity));
+               transition-duration: 250ms;
+
+               &:hover {
+                  --un-bg-opacity: 1;
+                  background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+                  --un-text-opacity: 1;
+                  color: rgba(107, 185, 39, var(--un-text-opacity));
+               }
+
+               @screen sm {
+                  padding-top: 0.5rem;
+                  padding-bottom: 0.5rem;
+                  padding-left: 1.5rem;
+                  padding-right: 1.5rem;
+                  font-size: 0.75rem;
+                  line-height: 1rem;
+               }
+
+               @screen xl {
+                  margin-top: 0.75rem;
+                  padding-top: 0.75rem;
+                  padding-bottom: 0.75rem;
+                  padding-left: 2rem;
+                  padding-right: 2rem;
+               }
+            }
+         }
+
+         > div:nth-child(2) {
+            z-index: 1000;
+            z-index: auto;
+            grid-column: span 7/span 7;
+            padding: 1.25rem;
+            padding-right: 0rem;
+            padding-left: 0.25rem;
+
+            @screen md {
+               grid-column: span 8/span 8;
+            }
+
+            @screen xl {
+               grid-column: span 9/span 9;
+            }
+
+            .dmrcr {
+               border-radius: 0.5rem;
+               --un-bg-opacity: 1;
+               background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+
+               img {
+                  width: 100%;
+                  padding-top: 1.25rem;
+                  padding-bottom: 2.5rem;
+               }
+
+               div {
+                  overflow-x: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  padding-left: 0.75rem;
+                  padding-right: 0.75rem;
+                  padding-bottom: 0.5rem;
+                  text-align: right;
+                  font-size: 10px;
+                  direction: rtl;
+
+                  @screen sm {
+                     font-size: 0.875rem;
+                     line-height: 1.25rem;
+                  }
+
+                  > h4:nth-child(1) {
+                     margin-bottom: 0.25rem;
+                     width: 5rem;
+                     --un-text-opacity: 1;
+                     color: rgba(0, 0, 0, var(--un-text-opacity));
+                  }
+
+                  > h4:nth-child(2) {
+                     --un-text-opacity: 1;
+                     color: rgba(230, 70, 94, var(--un-text-opacity));
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   section:nth-child(5) {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 420px;
+      padding: 0.5rem;
+
+      @screen md {
+         max-width: 768px;
+      }
+
+      @screen xl {
+         max-width: 1170px;
+         padding-top: 0.75rem;
+         padding-bottom: 0.75rem;
+      }
+
+      div {
+         display: grid;
+         grid-template-columns: repeat(1, minmax(0, 1fr));
+         grid-gap: 0.5rem;
+         gap: 0.5rem;
+
+         @screen md {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+         }
+
+         @screen xl {
+            grid-gap: 0.75rem;
+            gap: 0.75rem;
+         }
 
          img {
             border-radius: 0.75rem;
+            width: 100%;
          }
-
       }
    }
 }
 
 // shit
-section:nth-child(4) {
-   --un-bg-opacity: 1 !important;
-   background-color: rgba(107, 185, 39, var(--un-bg-opacity)) !important;
-
-   > div:nth-child(1) {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 420px;
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-
-      @screen md {
-         max-width: 768px;
-         padding-top: 1.25rem;
-         padding-bottom: 1.25rem;
-      }
-
-      @screen xl {
-         max-width: 1170px;
-      }
-
-      > div:nth-child(1) {
-         grid-column: span 5/span 5;
-         margin-left: 0.25rem;
-         margin-right: 1.25rem;
-         justify-content: center;
-         padding-top: 1.75rem;
-         padding-bottom: 1.75rem;
-
-         @screen sm {
-            margin-left: 1.25rem;
-         }
-
-         @screen md {
-            grid-column: span 4/span 4;
-            padding-right: 1.25rem;
-         }
-
-         @screen xl {
-            grid-column: span 3/span 3;
-            margin-right: 0rem;
-         }
-
-         > img:nth-child(1) {
-            @screen xl {
-               width: 75%;
-            }
-
-         }
-
-         > button:nth-child(2) {
-            border-width: 1px;
-            border-style: solid;
-            --un-border-opacity: 1;
-            border-color: rgba(255, 255, 255, var(--un-border-opacity));
-            border-radius: 0.5rem;
-            background-color: transparent;
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            font-size: 10px;
-            --un-text-opacity: 1;
-            color: rgba(255, 255, 255, var(--un-text-opacity));
-            transition-duration: 250ms;
-
-            &:hover {
-               --un-bg-opacity: 1;
-               background-color: rgba(255, 255, 255, var(--un-bg-opacity));
-               --un-text-opacity: 1;
-               color: rgba(107, 185, 39, var(--un-text-opacity));
-            }
-
-            @screen sm {
-               padding-top: 0.5rem;
-               padding-bottom: 0.5rem;
-               padding-left: 1.5rem;
-               padding-right: 1.5rem;
-               font-size: 0.75rem;
-               line-height: 1rem;
-            }
-
-            @screen xl {
-               margin-top: 0.75rem;
-               padding-top: 0.75rem;
-               padding-bottom: 0.75rem;
-               padding-left: 2rem;
-               padding-right: 2rem;
-            }
-         }
-      }
-
-      > div:nth-child(2) {
-         z-index: 1000;
-         z-index: auto;
-         grid-column: span 7/span 7;
-         padding: 1.25rem;
-         padding-right: 0rem;
-         padding-left: 0.25rem;
-
-         @screen md {
-            grid-column: span 8/span 8;
-         }
-
-         @screen xl {
-            grid-column: span 9/span 9;
-         }
-
-         .dmrcr {
-            border-radius: 0.5rem;
-            --un-bg-opacity: 1;
-            background-color: rgba(255, 255, 255, var(--un-bg-opacity));
-
-            img {
-               width: 100%;
-               padding-top: 1.25rem;
-               padding-bottom: 2.5rem;
-            }
-
-            div {
-               overflow-x: hidden;
-               text-overflow: ellipsis;
-               white-space: nowrap;
-               padding-left: 0.75rem;
-               padding-right: 0.75rem;
-               padding-bottom: 0.5rem;
-               text-align: right;
-               font-size: 10px;
-               direction: rtl;
-
-               @screen sm {
-                  font-size: 0.875rem;
-                  line-height: 1.25rem;
-               }
-
-               > h4:nth-child(1) {
-                  margin-bottom: 0.25rem;
-                  width: 5rem;
-                  --un-text-opacity: 1;
-                  color: rgba(0, 0, 0, var(--un-text-opacity));
-               }
-
-               > h4:nth-child(2) {
-                  --un-text-opacity: 1;
-                  color: rgba(230, 70, 94, var(--un-text-opacity));
-               }
-            }
-         }
-      }
-   }
-}
-
 .carousel__pagination {
    display: none;
 }
