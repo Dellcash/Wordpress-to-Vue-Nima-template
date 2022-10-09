@@ -23,6 +23,16 @@ const breakpoints = reactive({
       snapAlign: 'start',
    },
 })
+const customBreakpoints = reactive({
+   768: {
+      itemsToShow: 3,
+      snapAlign: 'start',
+   },
+   1280: {
+      itemsToShow: 4,
+      snapAlign: 'start',
+   },
+})
 </script>
 <template>
    <main>
@@ -121,10 +131,37 @@ const breakpoints = reactive({
             <img v-for="banner in mainStore.banners.slice(10,12)" :src="banner" alt="banner">
          </div>
       </section>
-
       <!-- shit-->
-      <section>
-       
+      <section layout>
+         <div bg-white rounded-xl mx2 shadow p3 pb5 sm:p5 md:p7 md:pb10>
+            <div>
+               <h3
+                  class=":: mx3 mb5 text-black text-sm font-semibold tracking-1px border-b pb2 border-stone-300 sm:text-lg xl:text-xl xl:tracking-2px">
+                  منتخب‌ترین کالاها
+               </h3>
+            </div>
+            <div bg-white>
+               <Carousel v-if="mainStore.products.length !== 0" :wrap-around="true" :autoplay="2000" dir="rtl"
+                  :settings="settings" :breakpoints="customBreakpoints">
+                  <Slide v-for="product in mainStore.products" :key="product" px2>
+                     <div>
+                        <img :src="product.img" alt="product" p5>
+                        <div class="!pt10 text-right !px7 !md:px10">
+                           <h4 mb2 text-sm>{{product.title}}</h4>
+                           <div text-xs>
+                              <h4 line-through>{{product.beforeOff}}</h4>
+                              <h4 text-custom_red>{{product.afterOff}}</h4>
+                           </div>
+                        </div>
+                     </div>
+                  </Slide>
+
+                  <template #addons>
+                     <Pagination />
+                  </template>
+               </Carousel>
+            </div>
+         </div>
       </section>
    </main>
 </template>
@@ -409,10 +446,12 @@ main {
          @screen md {
             grid-template-columns: repeat(4, minmax(0, 1fr));
          }
+
          @screen xl {
             grid-gap: 0.75rem;
             gap: 0.75rem;
          }
+
          img {
             border-radius: 0.75rem;
             width: 100%;
@@ -612,6 +651,7 @@ main {
          }
       }
    }
+
 }
 
 // shit
