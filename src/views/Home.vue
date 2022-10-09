@@ -131,26 +131,23 @@ const customBreakpoints = reactive({
             <img v-for="banner in mainStore.banners.slice(10,12)" :src="banner" alt="banner">
          </div>
       </section>
-      <!-- shit-->
-      <section layout>
-         <div bg-white rounded-xl mx2 shadow p3 pb5 sm:p5 md:p7 md:pb10>
+
+      <section>
+         <div>
+            <h3>
+               منتخب‌ترین کالاها
+            </h3>
             <div>
-               <h3
-                  class=":: mx3 mb5 text-black text-sm font-semibold tracking-1px border-b pb2 border-stone-300 sm:text-lg xl:text-xl xl:tracking-2px">
-                  منتخب‌ترین کالاها
-               </h3>
-            </div>
-            <div bg-white>
                <Carousel v-if="mainStore.products.length !== 0" :wrap-around="true" :autoplay="2000" dir="rtl"
                   :settings="settings" :breakpoints="customBreakpoints">
                   <Slide v-for="product in mainStore.products" :key="product" px2>
                      <div>
-                        <img :src="product.img" alt="product" p5>
-                        <div class="!pt10 text-right !px7 !md:px10">
-                           <h4 mb2 text-sm>{{product.title}}</h4>
-                           <div text-xs>
-                              <h4 line-through>{{product.beforeOff}}</h4>
-                              <h4 text-custom_red>{{product.afterOff}}</h4>
+                        <img :src="product.img" alt="product">
+                        <div class="b95nng">
+                           <h4>{{product.title}}</h4>
+                           <div>
+                              <h4>{{product.beforeOff}}</h4>
+                              <h4>{{product.afterOff}}</h4>
                            </div>
                         </div>
                      </div>
@@ -652,9 +649,121 @@ main {
       }
    }
 
+   section:nth-child(6) {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 420px;
+
+      @screen md {
+         max-width: 768px;
+      }
+
+      @screen xl {
+         max-width: 1170px;
+      }
+
+      > div:nth-child(1) {
+         margin-left: 0.5rem;
+         margin-right: 0.5rem;
+         border-radius: 0.75rem;
+         --un-bg-opacity: 1;
+         background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+         padding: 0.75rem;
+         padding-bottom: 1.25rem;
+         --un-shadow: var(--un-shadow-inset) 0 1px 3px 0 var(--un-shadow-color, rgba(0, 0, 0, 0.1)),
+            var(--un-shadow-inset) 0 1px 2px -1px var(--un-shadow-color, rgba(0, 0, 0, 0.1));
+         box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+            var(--un-shadow);
+
+         @screen sm {
+            padding: 1.25rem;
+         }
+
+         @screen md {
+            padding: 1.75rem;
+            padding-bottom: 2.5rem;
+         }
+
+         h3 {
+            margin-left: 0.75rem;
+            margin-right: 0.75rem;
+            margin-bottom: 1.25rem;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            --un-border-opacity: 1;
+            border-color: rgba(214, 211, 209, var(--un-border-opacity));
+            padding-bottom: 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            --un-text-opacity: 1;
+            color: rgba(0, 0, 0, var(--un-text-opacity));
+
+            @screen sm {
+               font-size: 1.125rem;
+               line-height: 1.75rem;
+            }
+
+            @screen xl {
+               font-size: 1.25rem;
+               line-height: 1.75rem;
+               letter-spacing: 2px;
+            }
+         }
+
+         > div:nth-child(2) {
+            --un-bg-opacity: 1;
+            background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+
+            img {
+               padding: 1.25rem;
+               padding-bottom: 0rem;
+            }
+
+            .b95nng {
+               padding-left: 1.75rem !important;
+               padding-right: 1.75rem !important;
+               text-align: right;
+
+               @screen sm {
+                  padding-top: 1.25rem !important;
+               }
+
+               @screen md {
+                  padding-left: 2.5rem !important;
+                  padding-right: 2.5rem !important;
+               }
+
+               @screen xl {
+                  padding-top: 2.5rem !important;
+               }
+
+               > h4:nth-child(1) {
+                  margin-bottom: 0.5rem;
+                  font-size: 0.875rem;
+                  line-height: 1.25rem;
+               }
+
+               > div:nth-child(2) {
+                  font-size: 0.75rem;
+                  line-height: 1rem;
+
+                  > h4:nth-child(1) {
+                     text-decoration-line: line-through;
+                  }
+
+                  > h4:nth-child(2) {
+                     --un-text-opacity: 1;
+                     color: rgba(230, 70, 94, var(--un-text-opacity));
+                  }
+               }
+            }
+         }
+      }
+   }
 }
 
-// shit
 .carousel__pagination {
    display: none;
 }
