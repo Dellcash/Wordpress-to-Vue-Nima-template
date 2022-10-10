@@ -8,7 +8,8 @@ export const useMainStore = defineStore({
     sideCard: false,
     mainLoading: false,
     banners: [],
-    products: []
+    products: [],
+    services: []
   }),
   getters: {
   },
@@ -20,6 +21,7 @@ export const useMainStore = defineStore({
           this.mainLoading = false
           this.banners = res.data.banner
           this.products = res.data.products
+          this.services = res.data.services
         }).catch(err => {
           console.log(err);
         })
